@@ -49,13 +49,15 @@
 
   2. 配置虚拟环境
 	
-	  安装virtualenv
+	  安装virtualenv：pip install virtualenv -i https://pypi.douban.com/simple(如果已安装virtualenv，这条命令可不执行，可使用 where virtualenv 查看是否已安装)
 	
 	  创建虚拟环境：virtualenv  venv 
 
 	  激活虚拟环境 ：venv\Scripts\activate
 
-  3. 安装项目所需的库
+  3. 安装项目所需的库(requirements.txt)
+	
+	pip install -r requirements.txt -i https://pypi.tsinghua.edu.cn/simple
 
   4. 创建各类型文件，并编写源码
 
