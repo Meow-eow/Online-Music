@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf8">
+    <title>甜橙云音乐</title>
+    <link href="{{ url_for('static',filename='css/core.css')}}" rel="stylesheet">
+    <link href="{{ url_for('static',filename='css/pt_frame.css')}}" rel="stylesheet">
+	<link href="{{ url_for('static',filename='js/toolTip/tooltip.css')}}" rel="stylesheet">
+	<script type="text/javascript" src="{{url_for('static',filename='js/toolTip/tooltip.js')}}"></script>
+	 <script type="text/javascript" src="{{url_for('static',filename='js/jquery-2.2.0.min.js')}}"></script>
+    <style>html, body {
+        overflow: hidden;
+    }</style>
+    <script>if (top != self)top.location = self.location;</script>
+</head>
+<body class="auto-1469062573613-parent auto-1469062573612-parent">
+
+
+<div id="g-topbar" class="g-topbar">
+    <div class="m-top">
+        <div class="wrap">
+            <h1 class="logo"><a hidefocus="true" target="contentFrame" href="{{url_for('home.index')}}">甜橙云音乐</a></h1>
+            <ul class="m-nav j-tflag">
+                <li class="fst">
+                    <span><a hidefocus="true" target="contentFrame"  data-module="discover" class="z-slt"><em>发现音乐</em></a></span>
+                </li>
+                <li>
+                    <span><a target="contentFrame" ><em>我的音乐</em><sub class="cor">&nbsp;</sub></a></span>
+                </li>
+            </ul>
+			{% if session['username'] %}
+            <div class="m-tophead f-pr j-tflag" >
+				<a onmouseover="tooltip.pop(this, '#textContent',{position:1, offsetX:0,  effect:'slide'})"  class="tooltip" style="color:#1C2021">您好，{{ session['username']}}</a>
+            </div>
+			<div style="display: none">
+				<div id="textContent" style="width: 75px; height: 45px;color:black">
+					{% if session['username'] == 'mr' %}
+					<a target="contentFrame" href="{{url_for('home.manageArtist')}}">后台管理</a>
+					{% else %}
+					<a target="contentFrame" href="{{url_for('home.modifyPassword')}}">修改密码</a>
+					{% endif %}
+					<br />
+					<a id="blogUrl" href="{{url_for('home.logout')}}">退出</a>
+				</div>
+			</div>
+			{% else %}
+			<div class="m-tophead f-pr j-tflag">
+				<a id="login" class="name f-thide f-fl f-tdn" style="color:#1C2021">登录</a>
+				<a id="register" class="name f-thide f-fl f-tdn" style="color:#1C2021">注册</a>
+			</div>
+			{% endif %}
+		</div>
+    </div>
+    <div class="m-subnav m-subnav-up f-pr j-tflag f-hide">
+        <div class="shadow">&nbsp;</div>
+    </div>
+    <div id="g_nav2" class="m-subnav j-tflag">
+        <div class="wrap f-pr">
+            <ul class="nav">
+                <li><a hidefocus="true" target="contentFrame" href="{{url_for('home.index')}}" data-module="discover"
+                       class="z-slt menuTab"><em>推荐</em></a></li>
+                <li><a hidefocus="true" target="contentFrame" data-module="toplist"
+                       class="menuTab"><em>排行榜</em></a></li>
+                <li><a hidefocus="true" target="contentFrame" data-module="playlist"
+					   class="menuTab"><em>曲风</em></a>
+                </li>
+                <li><a hidefocus="true" target="contentFrame"  data-module="artist"
+                       class="menuTab"><em>歌手</em></a>
+				</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<script>
+$(".menuTab").bind("click", function(obj){
+	$('.menuTab').removeClass("z-slt");
+	obj.currentTarget.className='z-slt menuTab';
+});
+</script>
+<iframe name="contentFrame" id="g_iframe" class="g-iframe" scrolling="auto" frameborder="0"
+        src="{{ url_for('home.contentFrame') }}">
+</iframe>
+
+<link href="{{url_for('static',filename='css/jplayer.blue.monday.min.css')}}" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="{{url_for('static',filename='js/jplayer/jquery.jplayer.min.js')}}"></script>
+<script>
+// 定义播放音乐的方法
+function playMusic(name, id) {
+
+   $("#jquery_jplayer").jPlayer( "destroy" );         	// 销毁正在播放的音乐
+   $("#jquery_jplayer").jPlayer({						// 播放音乐
+		ready: function(event) {						// 准备音频
+			$(this).jPlayer("setMedia", {
+				title: name,							// 设置音乐标题
+				mp3: "static/images/song/53.mp3"		// 设置播放音乐
+			}).jPlayer( "play" );						// 开始播放
+		},
+		swfPath: "dist/jplayer/jquery.jplayer.swf",     // IE8下的兼容播放
+		supplied: "mp3",								// 音乐格式为mp3
+		wmode: "window",								// 播放模式“window”
+		useStateClassSkin: true,						// 设置默认样式
+		autoBlur: false,								// 不支持模糊
+		smoothPlayBar: true,							// 支持图标
+		keyEnabled: true,								// 支持键盘
+		remainingDuration: true,						// 支持动画
+		toggleDuration: true 							// 支持进度条
+	});
+}
+
+
+
+
+</script>
+		<div id="demo" style="z-index: 999; position: fixed;right:0;left:0;bottom:0;width:100%;">
+			<div id="jquery_jplayer" class="jp-jplayer">
+			</div>
+			<div id="jp_container_1" class="jp-audio" role="application"
+				aria-label="media player">
+				<div class="jp-type-single">
+					<div class="jp-details">
+						<div class="jp-title" aria-label="title">
+							暂无播放音乐
+						</div>
+					</div>
+					<div class="jp-gui jp-interface" style="margin-left:30% " >
+						<div class="jp-controls">
+							<button class="jp-play" role="button" tabindex="0">
+								play
+							</button>
+						</div>
+						<div class="jp-progress">
+							<div class="jp-seek-bar">
+								<div class="jp-play-bar"></div>
+							</div>
+						</div>
+						<div class="jp-volume-controls">
+							<button class="jp-mute" role="button" tabindex="0">
+								mute
+							</button>
+							<button class="jp-volume-max" role="button" tabindex="0">
+								max volume
+							</button>
+							<div class="jp-volume-bar">
+								<div class="jp-volume-bar-value"></div>
+							</div>
+							<div class="jp-duration" role="timer" aria-label="duration">
+								&nbsp;
+							</div>
+							<div class="jp-time-holder">
+								<div class="jp-duration" role="timer" aria-label="duration">
+									&nbsp;
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+<script type="text/javascript" src="{{url_for('static',filename='js/layer/layer.js')}}"></script>
+<script>
+// 登录弹窗
+$("#login").click(function () {
+	layer.open({
+	  type: 2,
+	  title: '登录',
+	  shadeClose: true,
+	  shade: 0.4,
+	  area: ['700px', '550px'],
+	  content: ['/login','no'] //iframe的url
+	});
+});
+// 注册弹窗
+$("#register").click(function () {
+	layer.open({
+	  type: 2,
+	  title: '注册',
+	  shadeClose: true,
+	  shade: 0.4,
+	  area: ['700px', '550px'],
+	  content: ['/register','no'] //iframe的url
+	});
+})
+</script>
+</body>
+</html>

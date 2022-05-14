@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf8">
+        <title>甜橙云音乐</title>
+        <link href="{{ url_for('static',filename='css/pt_discover_index.css')}}" type="text/css" rel="stylesheet">
+        <link href="{{ url_for('static',filename='css/pt_frame.css')}}" type="text/css" rel="stylesheet">
+        <script type="text/javascript" src="{{url_for('static',filename='js/jquery-2.2.0.min.js')}}"></script>
+        <script type="text/javascript" src="{{url_for('static',filename='js/layer/layer.js')}}"></script>
+    </head>
+    <body style="background: url('../../static/image/bg.jpg') repeat-y 100% 100%;">
+        <div data-module="" data-sub="" id="g_top" class="m-top">
+            &nbsp;
+        </div>
+        <div id="g_nav" class="m-subnav m-subnav-up f-pr">
+            <div class="shadow">
+                &nbsp;
+            </div>
+        </div>
+        <div class="g-bd" style="margin-top:50px">
+            <div class="g-wrap" id="baseBox">
+                <div class="u-title u-title-2 f-cb">
+                    <h3>
+                        <span class="f-ff2">后台管理</span>
+                    </h3>
+                </div>
+                <ul class="m-tabs f-cb">
+                    <li class="fst">
+                        <a href="{{url_for('home.manageArtist')}}" class="z-slt"><em>歌手</em> </a>
+                    </li>
+                    <li>
+                        <a href="{{url_for('home.manageSong')}}"><em>歌曲</em> </a>
+                    </li>
+                </ul>
+                <div class="g-wrap p-prf">
+                    <div class="n-bind f-cb j-flag">
+                        <p class="delete">
+                            <a target="contentFrame" href="{{url_for('home.manageArtistAdd')}}" class="btn"><i>新增歌手</i>
+                            </a>
+                        </p>
+                    </div>
+                    <div class="u-title u-title-1 f-cb m-record-title" id="rHeader">
+                        <h3>
+                            <span class="f-ff2 s-fc3">歌手列表</span>
+                        </h3>
+                    </div>
+                    <div id="m-record" data-uid="3514008" data-songs="1316"
+                        class="m-record">
+                        <div id="auto-id-oXK37yPmGlBEcCTf">
+                            <div class="j-flag" id="auto-id-42i2wAet2Pki6UW6">
+                                <table class="m-table m-table-rank">
+                                    <thead>
+                                        <tr>
+
+                                            <th>
+                                                <div class="wp">
+                                                    歌手
+                                                </div>
+                                            </th>
+                                            <th class="w3">
+                                                <div class="wp">
+                                                    分类
+                                                </div>
+                                            </th>
+                                            <th class="w3">
+                                                <div class="wp">
+                                                    是否热门
+                                                </div>
+                                            </th>
+                                            <th class="w3">
+                                                <div class="wp">
+                                                    操作
+                                                </div>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for artist in page_data.items %}
+                                        <tr>
+                                            <td class="rank">
+                                                {{artist.artistName}}
+                                            </td>
+                                            <td class=" s-fc3">
+                                                {% if artist.style == 1 %}
+                                                华语歌手
+                                                {% elif artist.style == 2%}
+                                                欧美歌手
+                                                {% elif artist.style == 3%}
+                                                日语歌手
+                                                {% elif artist.style == 4%}
+                                                韩语歌手
+                                                {% elif artist.style == 5%}
+                                                其他歌手
+                                                {% endif %}
+                                            </td>
+                                            <td class=" s-fc3">
+                                            {% if artist.isHot == 1%}
+                                                是
+                                            {% else %}
+                                                否
+                                            {% endif %}
+                                            </td>
+                                            <td class="">
+                                                <a href="{{url_for('home.manageArtistEdit',id=artist.id)}}">修改</a>
+                                                <a href="javascript:;" class="del" value="{{artist.id}}">删除</a>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                    <tr>
+                                        <td height="24" align="right">
+                                            当前页数：[{{page_data.page}}/{{page_data.pages}}]&nbsp;
+                                            <a href="{{ url_for('home.manageArtist',page=1) }}">第一页</a>
+                                                {% if page_data.has_prev %}
+                                                  <a href="{{ url_for('home.manageArtist',page=page_data.prev_num) }}">上一页</a>
+                                                {% endif %}
+                                                {% if page_data.has_next %}
+                                            　     <a href="{{ url_for('home.manageArtist',page=page_data.next_num) }}">下一页</a>
+                                                {% endif %}　
+                                            <a href="{{ url_for('home.manageArtist',page=page_data.pages) }}">最后一页&nbsp;</a>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="j-flag"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</script>
+    <script>
+        $('.del').click(function(){
+            id = $(this).attr('value');
+            layer.confirm('确认删除',function(){
+                $.ajax({                                    // 使用Ajax异步提交
+                    url: "{{ url_for('home.manageArtistDel') }}",   // 提交到的URL
+                    type: "GET",                            // 提交方式为GET
+                    data:{id:id},// 传递参数
+                    dataType: "json",                       // 数据类型为json
+                    success: function (res) {               // 操作成功后执行逻辑
+                        if (res.status == 1) {
+                            layer.msg(res.message,{icon:1,time:2000},function(){
+                                window.location.href='/manage_artist_list';
+                            });
+                        } else {
+                            layer.msg(res.message,{icon:2,time:2000});   // 提示失败
+                        }
+                    }
+                })
+            })
+        })
+    </script>
+    </body>
+</html>

@@ -1,0 +1,82 @@
+	.respond {
+    position: relative;
+    overflow: hidden;
+    padding: 20px 30px;
+    font-size: 13px;
+    }
+    .respond div {
+        margin: 6px 0;
+        color: #13ACC3;
+        font-size:20px;
+    }
+    .comment-login {
+        padding: 60px 0 0;
+        text-align: center;
+    }
+    .comment-login li {
+        margin: 20px 20px;
+    }
+
+    .comment-regists {
+        padding: 10px 130px 0;
+        text-align: right;
+    }
+    .comment-regists li {
+        margin: 20px 20px;
+    }
+    .respond label {
+        position: relative;
+        top: 5px;
+    }
+    .respond input {
+        width: 150px;
+        height: 18px;
+        border-top-style: initial;
+        border-right-style: initial;
+        border-left-style: initial;
+        border-top-color: initial;
+        border-right-color: initial;
+        border-left-color: initial;
+        border-image-source: initial;
+        border-image-slice: initial;
+        border-image-width: initial;
+        border-image-outset: initial;
+        border-image-repeat: initial;
+        color: rgb(79, 79, 79);
+        font-size: 13px;
+        font-family: 微软雅黑;
+        overflow: hidden;
+        padding: 2px;
+        outline: 0px;
+        border-width: 0px 0px 1px;
+        border-bottom: 1px dashed rgb(127, 155, 192);
+        background: 0px 0px;
+    }
+    .respond input.submitButton {
+        margin-right: 14px;
+        width: 66px;
+        height: 26px;
+        border-image-source: initial;
+        border-image-slice: initial;
+        border-image-width: initial;
+        border-image-outset: initial;
+        border-image-repeat: initial;
+        color: rgb(255, 255, 255);
+        font-size: 13px;
+        font-family: 微软雅黑;
+        cursor: pointer;
+        outline: 0px;
+        border-width: 0px;
+        border-style: initial;
+        border-color: initial;
+        border-radius: 0px;
+        background: rgb(19, 172, 195);
+    }
+    div.jbox .jbox-button {
+        color: #1E1D1D;
+    }
+
+    #loginHtml{overflow:hidden;}
+    .left{width:350px;height:574px;  background:#f0f3f9 url(../../static/image/login-leftBg.jpg) no-repeat; float:left;}
+    .right{width:350px; height:574px; background:#f0f3f9 url(../../static/image/login-rightBg.jpg) no-repeat; float:left;}
+    .center{background:#ffe6b8; height:574px;}

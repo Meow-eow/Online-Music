@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf8">
+    <title>甜橙云音乐</title>
+    <link href="{{ url_for('static',filename='css/pt_discover_index.css')}}" type="text/css" rel="stylesheet">
+    <link href="{{ url_for('static',filename='css/pt_frame.css')}}" type="text/css" rel="stylesheet">
+</head>
+	<body id="auto-id-GSM4aHykyxAiXHiX" style="background: url('../../static/image/bg.jpg') no-repeat">
+		<div data-module="discover" data-sub="toplist" id="g_top"
+			class="m-top">
+			&nbsp;
+		</div>
+		<div id="g_nav" class="m-subnav">
+			&nbsp;
+		</div>
+		<div id="toplist" class="g-bd3 g-bd3-1 f-cb">
+			<div class="g-sd3 g-sd3-1">
+				<div class="n-minelst n-minelst-2">
+					<h2 class="f-ff1">
+						热门歌手
+					</h2>
+					<ul class="m-hdlist f-cb" style="margin:0px">
+                        {% for artist in hot_artist %}
+						<li data-res-id="9621" data-res-type="2" data-res-action="log"
+							data-res-data="recommendclick|0||artist-artist-recommend|10559">
+							<div class="hd">
+								<a href=" " > <img
+										src="static/images/artist/{{artist.imgURL}}">
+								</a>
+							</div>
+							<p>
+								<a href=" "
+									class="nm nm-icn f-ib f-thide">{{artist.artistName}}</a>
+							</p>
+						</li>
+                        {% endfor %}
+					</ul>
+				</div>
+			</div>
+
+			<div class="g-mn3" style="margin-top: 30px">
+				<div class="g-mn3c">
+
+					<div class="g-wrap12">
+						<div class="u-title u-title-1 f-cb">
+							<h3>
+								<span class="f-ff2">歌曲TOP-30</span>
+							</h3>
+						</div>
+						<div id="song-list-pre-cache" data-key="song_toplist-19723756"
+							data-simple="0">
+							<div id="auto-id-VEd67rpf74DVML8f">
+								<div class="j-flag" id="auto-id-o5oRUwylt22S4fpC">
+									<table class="m-table m-table-rank">
+										<thead>
+											<tr>
+												<th>
+													<div class="wp">
+														歌曲
+													</div>
+												</th>
+												<th class="w2-1">
+													<div class="wp">
+														类别
+													</div>
+												</th>
+												<th class="w3">
+													<div class="wp">
+														歌手
+													</div>
+												</th>
+											</tr>
+										</thead>
+										<tbody>
+                                            {% for song in top_song %}
+											<tr class=" ">
+												<td class="">
+													<div class="f-cb">
+														<div class="tt">
+															<span
+																onclick='playA("{{song.songName}}","{{song.id}}");'
+																class="ply ">&nbsp;</span>
+															<div class="ttc">
+																<span class="txt"><b>{{song.songName}} </b> </span>
+															</div>
+														</div>
+													</div>
+												</td>
+												<td class=" s-fc3">
+													<span class="u-dur ">
+                                                        {% if song.style == 1 %}
+                                                        华语
+                                                        {% elif song.style == 2%}
+                                                        欧美
+                                                        {% elif song.style == 3%}
+                                                        日语
+                                                        {% elif song.style == 4%}
+                                                        韩语
+                                                        {% elif song.style == 5%}
+                                                        其他
+                                                        {% endif %}
+                                                    </span>
+													<div class="opt hshow">
+														<span onclick='addShow("{{song.id}}")' class="icn icn-fav" title="收藏"></span>
+													</div>
+												</td>
+												<td class="">
+													<div class="text">
+														<span>{{song.singer}} </span>
+													</div>
+												</td>
+											</tr>
+                                            {% endfor %}
+										</tbody>
+									</table>
+								</div>
+								<div class="j-flag"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+<script>
+function playA(name,id){
+	window.parent.playMusic(name,id);
+}
+function addShow(id){
+	window.parent.addShow(id);
+}
+</script>
+	</body>
+</html>

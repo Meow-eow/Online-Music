@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="{{ url_for('static',filename='css/core.css')}}" rel="stylesheet">
+    <link href="{{ url_for('static',filename='css/pt_frame.css')}}" rel="stylesheet">
+    <link href="{{ url_for('static',filename='css/login.css')}}" rel="stylesheet">
+    <script type="text/javascript" src="{{url_for('static',filename='js/jquery-2.2.0.min.js')}}"></script>
+     <script type="text/javascript" src="{{url_for('static',filename='js/layer/layer.js')}}"></script>
+</head>
+<body>
+<div id="loginHtml">
+<div class="left">
+</div>
+<div class="right" style="background: #f0f3f9 url('../../static/image/register-rightBg.jpg') no-repeat;">
+<div class="respond">
+    <form  method="post" action="{{url_for('home.login')}}"  id="commentform" onsubmit="return false">
+        <div class="comment-login"></div>
+        <div class="comment-login" style="font-size:16px;margin-top:-40px">
+        <ul style="margin-top:100px">
+        <li class="form-inline">
+        <label><strong>用户名：</strong></label>
+        <input type="text" name="username" id="username" value="" tabindex="1" aria-required="true">
+        </li>
+        <li class="form-inline">
+        <label><strong>密&nbsp&nbsp&nbsp&nbsp码：</strong></label>
+        <input type="password" name="pwd" id="pwd" value="" tabindex="2" aria-required="true">
+        </li>
+        <li class="form-inline">
+            <label><strong style="width:80px">确认密码：</strong></label>
+            <input type="password" name="repwd" id="repwd" value="" tabindex="2" aria-required="true">
+        </li>
+        </ul>
+        </div>
+        <div class="comment-login">
+            <input name="submit" type="submit" id="register"  class="submitButton" tabindex="5"  value="注册">
+        </div>
+    </form>
+</div>
+</div>
+</div>
+<script>
+    $('#register').click(function(){
+        var username = $('#username').val()
+        var pwd = $('#pwd').val()
+        var repwd = $('#repwd').val()
+        if(username == ''){
+            layer.msg('请输入用户名',{icon:2,time:1000});
+            return false;
+        }
+         if(pwd == ''){
+            layer.msg('请输入密码',{icon:2,time:1000});
+            return false;
+         }
+         if(pwd !== repwd){
+            layer.msg('两次输入密码不一致',{icon:2,time:1000});
+            return false;
+         }
+        $.ajax({                                    // 使用Ajax异步提交
+            url: "{{ url_for('home.register') }}",   // 提交到的URL
+            type: "POST",                            // 提交方式为GET
+            data:{username: username,pwd:pwd},       // 传递参数
+            dataType: "json",                       // 数据类型为json
+            success: function (res) {               // 操作成功后执行逻辑
+                if (res.status == 1) {
+                    layer.msg(res.message,{icon:1,time:2000},function(){
+                        window.parent.location.reload();                        // 从新加载父页面
+                        var index = parent.layer.getFrameIndex(window.name);    // 获取当frame标识
+                        parent.layer.close(index);                              // 关闭当前页
+                    });
+                } else {
+                    layer.msg(res.message,{icon:2,time:2000});   // 提示已收藏
+                }
+            }
+        })
+    })
+</script>
+</body>
+</html>

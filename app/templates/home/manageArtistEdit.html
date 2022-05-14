@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf8">
+		<title>甜橙云音乐</title>
+        <link href="{{ url_for('static',filename='css/pt_discover_index.css')}}" type="text/css" rel="stylesheet">
+        <link href="{{ url_for('static',filename='css/pt_frame.css')}}" type="text/css" rel="stylesheet">
+        <script type="text/javascript" src="{{url_for('static',filename='js/jquery-2.2.0.min.js')}}"></script>
+        <script type="text/javascript" src="{{url_for('static',filename='js/layer/layer.js')}}"></script>
+	</head>
+	<body style="background: url('../../static/image/bg.jpg') repeat-y 100% 100%;">
+		<div data-module="" data-sub="" id="g_top" class="m-top">
+			&nbsp;
+		</div>
+		<div id="g_nav" class="m-subnav m-subnav-up f-pr">
+			<div class="shadow">
+				&nbsp;
+			</div>
+		</div>
+		<div class="g-bd">
+			<div class="g-wrap" id="baseBox">
+
+				<ul class="m-tabs f-cb">
+					<li class="fst">
+						<a ><em>编辑歌手</em>
+						</a>
+					</li>
+				</ul>
+				<form onsubmit="return false" action="admin-artistAdd_deal.jsp">
+					 <input type="hidden" name="id" id="artist_id" value="{{artist.id}}">
+					<div class="n-base f-cb">
+						<div class="frm m-frm">
+							<div class="itm">
+								歌手姓名：<input type="text" class="u-txt txt" id="artistName"  name="artistName" maxlength="30" value="{{artist.artistName}}">
+							</div>
+							<div class="itm">
+								歌手分类：
+								<select id="style" name="style" class="u-txt txt" style="height:auto">
+									<option value="1" {% if artist.style == 1  %} selected {% endif %}>
+										华语
+									</option>
+									<option value="2" {% if artist.style == 2  %} selected {% endif %}>
+										欧美
+									</option>
+									<option value="3" {% if artist.style == 3 %} selected {% endif %}>
+										日语
+									</option>
+									<option value="4" {% if artist.style == 4  %} selected {% endif %}>
+										韩语
+									</option>
+									<option value="5" {% if artist.style == 5  %} selected {% endif %}>
+										其他
+									</option>
+								</select>
+							</div>
+							<div class="itm">
+								歌手图片：<input type="text" class="u-txt txt" id="imgURL" name="imgURL" maxlength="30" value="{{artist.imgURL}}">
+							</div>
+							<div class="itm">
+								是否热门：
+								<span>
+									<input type="radio"  name="isHot" value="1" maxlength="30" {% if artist.isHot == 1 %} checked{% endif %} > 是
+									<input type="radio"  name="isHot" value="0" maxlength="30" {% if artist.isHot == 0 %} checked{% endif %} > 否
+								</span>
+							</div>
+							<div class="itm ft">
+                                <button id="save" type="button"  >保存</button>
+                                <button onclick="history.go(-1)"  type="button"  >返回</button>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+<script>
+    $('#save').click(function(){
+    	var id = $('#artist_id').val()
+        var artistName = $('#artistName').val();
+        var imgURL = $('#imgURL').val();
+        var style =  $('#style').val();
+        var isHot =  $("input[name='isHot']:checked").val();
+        if(artistName == ""){
+            layer.msg("歌手姓名不能为空！",{icon:2,time:1000});
+            return false;
+		}
+		if(imgURL == ""){
+			layer.msg("歌手图片不能为空！",{icon:2,time:1000});
+			return false;
+		}
+        $.ajax({                                    // 使用Ajax异步提交
+            url: "{{ url_for('home.manageArtistEdit') }}",   // 提交到的URL
+            type: "POST",                            // 提交方式为POST
+            data:{id:id,artistName: artistName,style:style,imgURL:imgURL,isHot:isHot},// 传递参数
+            dataType: "json",                       // 数据类型为json
+            success: function (res) {               // 操作成功后执行逻辑
+                if (res.status == 1) {
+                    layer.msg(res.message,{icon:1,time:2000},function(){
+                        window.location.href='/manage_artist_list';
+                    });
+                } else {
+                    layer.msg(res.message,{icon:2,time:2000});   // 提示已收藏
+                }
+            }
+        })
+    })
+</script>
+	</body>
+</html>

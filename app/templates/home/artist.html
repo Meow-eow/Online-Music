@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+		<meta charset="utf8">
+		<title>甜橙云音乐</title>
+		<link href="{{ url_for('static',filename='css/pt_discover_index.css')}}" type="text/css" rel="stylesheet">
+		<link href="{{ url_for('static',filename='css/pt_frame.css')}}" type="text/css" rel="stylesheet">
+</head>
+	<body id="auto-id-gJp5uEFFituBq3HI" style="background: url('../../static/image/bg.jpg') no-repeat" >
+		<div data-module="discover" data-sub="other" id="g_top" class="m-top"></div>
+		<div id="g_nav" class="m-subnav"></div>
+		<div class="g-bd4 f-cb" style="background: url('../../static/image/bg-middle.png') repeat-y 100% 100%">
+			<div class="g-mn4">
+				<div class="g-mn4c">
+					<div class="g-wrap6">
+						<ul id="m_tabs" class="m-tabs f-cb">
+							<li class="fst">
+								<a href="#" class="z-slt"><em>ta的歌曲</em>
+								</a>
+							</li>
+						</ul>
+						<div  class="n-top50" style="margin-top:10px">
+							<div class="f-cb">
+								<div id="song-list-pre-cache" data-key="track_artist_top-10559"
+									data-simple="0">
+									<div >
+										<div class="j-flag" id="auto-id-u3G16kJnDyPpW0Vd">
+											<table class="m-table m-table-1 m-table-4">
+												<tbody>
+													{% for item in song %}
+													<tr class="even">
+														<td class="w1">
+															<div class="hd">
+																<span onclick='playA("{{item.songName}}","{{item.id}}");' class="ply ">&nbsp;</span>
+															</div>
+														</td>
+														<td class="">
+															<div class="f-cb">
+																<div class="tt">
+																	<div class="ttc">
+																		<span class="txt"><a href="#"><b>{{item.songName}}</b></a> </span>
+																	</div>
+																</div>
+															</div>
+														</td>
+														<td class="w2-1 s-fc3">
+															<span class="u-dur ">播放：{{item.hits}}次</span>
+															<div class="opt hshow">
+																<span onclick='addShow("{{item.id}}")' class="icn icn-fav"
+																	title="收藏"></span>
+															</div>
+														</td>
+													</tr>
+													{% endfor %}
+												</tbody>
+											</table>
+										</div>
+										<div class="j-flag"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="g-sd4">
+				<div class="g-wrap7">
+
+					<h3 class="u-hd3">
+						<span class="f-fl">热门歌手</span>
+					</h3>
+
+					<ul class="m-hdlist f-cb" id="rec-similar-artists">
+						{% for artist in hot_artist %}
+						<li data-res-id="9621" data-res-type="2" data-res-action="log"
+							data-res-data="recommendclick|0||artist-artist-recommend|10559">
+							<div class="hd">
+								<a href="{{url_for('home.artist',id=artist.id)}}" title="{{artist.artistName}}">
+									<img src="{{url_for('static',filename='images/artist/'+artist.imgURL)}}">
+								</a>
+							</div>
+							<p>
+								<a href="{{url_for('home.artist',id=artist.id)}}" title="{{artist.artistName}}"
+									class="nm nm-icn f-ib f-thide">{{artist.artistName}}</a>
+							</p>
+						</li>
+						{% endfor %}
+					</ul>
+				</div>
+			</div>
+		</div>
+<script>
+function playA(name,id){
+	window.parent.playMusic(name,id);
+}
+function addShow(id){
+	window.parent.addShow(id);
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf8">
+	<title>甜橙云音乐</title>
+	<link href="{{ url_for('static',filename='css/pt_discover_index.css')}}" type="text/css" rel="stylesheet">
+	<script src="{{ url_for('static',filename='js/jQuery-2.2.0.min.js')}}" type="text/javascript"></script>
+	<script src="{{ url_for('static',filename='js/jsArr01.js')}}" type="text/javascript"></script>
+	<style>
+		.slideshow .nivoSlider .nivo-directionNav a {
+		width: 40px;
+		height: 76px;
+		<!--background: url(../images/arrow-prev.png) no-repeat center center #030303;-->
+		top: 50%;
+		margin-top: -38px;
+		opacity: 0.5;
+		filter: alpha(opacity=50)
+		}
+
+		.slideshow .nivoSlider .nivo-directionNav a.nivo-nextNav {
+		background-image: url(../images/arrow-next.png)
+		}
+		.slideshow .nivo-directionNav a:hover {
+		background-color: #0885B1;
+		opacity: 5;
+		filter: alpha(opacity=100)
+		}
+
+		.nivo-controlNav {
+		display: none
+		}
+		.nivoSlider {
+		position: relative
+		}
+
+		.nivoSlider img {
+		left: 0;
+		position: absolute;
+		top: 0
+		}
+
+		.nivoSlider a.nivo-imageLink {
+		border: 0 none;
+		display: none;
+		height: 100%;
+		left: 0;
+		margin: 0;
+		padding: 0;
+		position: absolute;
+		top: 0;
+		width: 100%;
+		z-index: 6
+		}
+
+		.nivo-slice {
+		display: block;
+		height: 100%;
+		position: absolute;
+		z-index: 5
+		}
+
+		.nivo-box {
+		display: block;
+		position: absolute;
+		z-index: 5
+		}
+
+		.nivo-caption {
+		background: none repeat scroll 0 0 #000;
+		bottom: 0;
+		color: #fff;
+		left: 0;
+		opacity: 0.8;
+		position: absolute;
+		width: 100%;
+		z-index: 8
+		}
+
+		.nivo-caption p {
+		margin: 0;
+		padding: 5px
+		}
+
+		.nivo-caption a {
+		display: inline !important
+		}
+
+		.nivo-html-caption {
+		display: none
+		}
+
+		.nivo-directionNav a {
+		cursor: pointer;
+		position: absolute;
+		top: 45%;
+		z-index: 9
+		}
+
+		.nivo-prevNav {
+		left: 0
+		}
+
+		.nivo-nextNav {
+		right: 0
+		}
+
+		.nivo-controlNav a {
+		cursor: pointer;
+		position: relative;
+		z-index: 9
+		}
+
+		.nivo-controlNav a.active {
+		font-weight: bold
+		}
+
+		.slideshow .nivoSlider {
+
+		margin-bottom: 20px;
+		position: relative
+		}
+
+
+		.slideshow .nivoSlider img {
+		display: none;
+		left: 0;
+		position: absolute;
+		top: 0px
+		display: block;
+		width: 100%;
+		left: 1px !important;
+		top: 1px !important
+		}
+		.slideshow .nivoSlider a {
+		border: 0 none;
+		display: block
+		}
+
+		.slideshow .nivo-controlNav {
+		bottom: 5px;
+		height: 22px;
+		position: absolute;
+		right: 10px;
+		text-align: center;
+		z-index: 99
+		}
+
+		.slideshow .nivo-controlNav a {
+
+		border: 0 none;
+		display: block;
+		float: left;
+		height: 22px;
+		margin-right: 3px;
+		text-indent: -9999px;
+		vertical-align: top;
+		width: 22px
+		}
+
+		.slideshow .nivo-controlNav a.active {
+		background-position: 0 -22px
+		}
+
+		.slideshow .nivo-directionNav a {
+		border: 0 none;
+		display: block;
+		height: 30px;
+		text-indent: -9999px;
+		width: 30px
+		}
+
+		.slideshow a.nivo-nextNav {
+		background-position: -30px 0;
+		right: 15px
+		}
+
+		.slideshow a.nivo-prevNav {
+		left: 15px
+		}
+
+		.slideshow .nivo-caption {
+		font-family: Helvetica, Arial, sans-serif;
+		text-shadow: none
+		}
+
+		.slideshow .nivo-caption a {
+		color: #efe9d1;
+		text-decoration: underline
+		.slideshow > div {
+		height: 345px !important;
+		width: 850px
+		}
+	</style>
+</head>
+	<body id="auto-id-hmxzivBOqt0HedNm" style="background: url('../../static/image/bg.jpg') no-repeat">
+		<div data-module="discover" data-sub="discover" id="g_top"
+			class="m-top">
+			&nbsp;
+		</div>
+		<div id="g_nav" class="m-subnav">
+			&nbsp;
+		</div>
+		<div class="n-ban d-flag" id="index-banner"
+			style="background-image: url(static/image/bg.jpg); background-repeat: no-repeat;">
+			<div class="wrap">
+				<div class="ban f-pr" style="z-index: 10;">
+					<div id="slidershow" class="nivoSlider">
+						<a href="#" class="nivo-imageLink" style="display: block;">
+							<img src="{{url_for('static',filename='image/slider3.jpg')}}" class="img-responsive"
+							style="display: none;">
+						</a>
+						<a href="#" class="nivo-imageLink" style="display: none;">
+							<img src="{{url_for('static',filename='image/slider2.jpg')}}" class="img-responsive"
+							style="display: none;">
+						</a>
+					</div>
+				</div>
+				<div class="download f-pr">
+					<span class="shadow"></span><span class="shadowr"></span>
+				</div>
+			</div>
+			<div id="discover-module" class="g-bd1 f-cb">
+				<div class="g-mn1">
+					<div class="g-mn1c">
+						<div class="g-wrap3">
+							<div class="n-rcmd">
+								<div class="v-hd2">
+									<a href="#" class="tit f-ff2 f-tdn">热门歌手</a>
+									<span class="more"><a href=""
+										class="s-fc3">更多</a><i class="cor s-bg s-bg-6">&nbsp;</i> </span>
+								</div>
+								<ul class="m-cvrlst f-cb">
+									{% for artist in hot_artist %}
+									<li>
+										<div class="u-cover u-cover-1">
+											<a href="">
+												<img src="{{url_for('static',filename='images/artist/'+artist.imgURL)}}">
+											</a>
+										</div>
+									</li>
+									{% endfor %}
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="g-sd1">
+					<div class="n-dj n-dj-1">
+						<h1 class="v-hd3">
+							热门歌曲
+						</h1>
+						<ul class="n-hotdj f-cb" id="hotdj-list">
+							{% for song in hot_song %}
+							<li>
+								<div class="info">
+									<p>
+										<a onclick='playA("{{song.songName}}","{{song.id}}");'
+											style="color: #1096A9">{{song.songName}} </a>
+										<sup class="u-icn u-icn-1"></sup>
+									</p>
+									<p class="f-thide s-fc3">
+										歌手：{{song.singer}}
+									</p>
+								</div>
+							</li>
+							{% endfor %}
+						</ul>
+					</div>
+				</div>
+			</div>
+<script>
+//实现调用幻灯片插件轮播广告
+jQuery(document).ready(function() {
+	jQuery('#slidershow').nivoSlider();
+});
+
+function playA(name, id) {
+	window.parent.playMusic(name,id);
+}
+</script>
+</div>
+</body>
+</html>

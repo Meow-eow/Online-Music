@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf8">
+    <title>甜橙云音乐</title>
+    <link href="{{ url_for('static',filename='css/pt_discover_index.css')}}" type="text/css" rel="stylesheet">
+    <link href="{{ url_for('static',filename='css/pt_frame.css')}}" type="text/css" rel="stylesheet">
+</head>
+	<body id="auto-id-ws7DxlhbPlyHTsnX" style="background: url('../../static/image/bg.jpg') no-repeat">
+		<div data-module="discover" data-sub="playlist" id="g_top"
+			class="m-top">
+			&nbsp;
+		</div>
+		<div id="g_nav" class="m-subnav">
+			&nbsp;
+		</div>
+		<script>
+try {
+	top.matchNav("discover", "playlist");
+} catch (e) {
+}
+</script>
+		<div class="g-bd" id="m-disc-pl-c" style="background: url(../../static/image/bg-middle.png) repeat-y 100% 100%;">
+			<div class="g-wrap p-pl f-pr">
+				<div class="u-title f-cb">
+					<h3>
+						<span class="f-ff2 d-flag">
+							{% if type == 1 %}
+							华语
+							{% elif type == 2%}
+							欧美
+							{% elif type == 3%}
+							日语
+							{% elif type == 4%}
+							韩语
+							{% elif type == 5%}
+							其他
+							{% else %}
+							全部
+							{% endif %}
+						</span>
+						<a href="{{url_for('home.styleList')}}"
+							class="u-btn2-1 menu d-flag"><i>全部<em
+								class="u-icn u-icn-38"></em> </i> </a>
+						<a href="{{url_for('home.styleList',type=1)}}"
+							class="u-btn2-1 menu d-flag"><i>华语<em
+								class="u-icn u-icn-38"></em> </i> </a>
+						<a href="{{url_for('home.styleList',type=2)}}"
+							class="u-btn2-1 menu d-flag"><i>欧美<em
+								class="u-icn u-icn-38"></em> </i> </a>
+						<a href="{{url_for('home.styleList',type=3)}}"
+							class="u-btn2-1 menu d-flag"><i>日语<em
+								class="u-icn u-icn-38"></em> </i> </a>
+						<a href="{{url_for('home.styleList',type=4)}}"
+							class="u-btn2-1 menu d-flag"><i>韩语<em
+								class="u-icn u-icn-38"></em> </i> </a>
+						<a href="{{url_for('home.styleList',type=5)}}"
+							class="u-btn2-1 menu d-flag"><i>其他<em
+								class="u-icn u-icn-38"></em> </i> </a>
+					</h3>
+				</div>
+				<div id="m-search">
+					<div class="ztag j-flag" id="auto-id-oRFIQkCKNyCtcR5R">
+						<div class="n-srchrst">
+							<div class="srchsongst">
+								{% for song in page_data.items %}
+								<div class="item f-cb h-flag even ">
+									<div class="td">
+										<div class="hd">
+											<a class="ply " title="播放"
+												onclick='playA("{{song.songName}}","{{song.id}}");'></a>
+										</div>
+									</div>
+									<div class="td w0">
+										<div class="sn">
+											<div class="text">
+												<b title="Lose Yourself "><span
+														class="s-fc7">{{song.songName}} </span></b>
+											</div>
+										</div>
+									</div>
+									<div class="td">
+										<div class="opt hshow">
+											<span onclick='addShow("{{song.id}}")' class="icn icn-fav" title="收藏"></span>
+										</div>
+									</div>
+									<div class="td w1">
+										<div class="text">
+											{{song.singer}}
+										</div>
+									</div>
+									<div class="td w1">
+										{% if song.style == 1 %}
+											华语
+											{% elif song.style == 2%}
+											欧美
+											{% elif song.style == 3%}
+											日语
+											{% elif song.style == 4%}
+											韩语
+											{% elif song.style == 5%}
+											其他
+										{% endif %}
+									</div>
+									<div class="td">
+										播放：{{song.hits}}次
+									</div>
+								</div>
+								{% endfor %}
+							</div>
+						</div>
+					</div>
+					<table width="100%" border="0" cellspacing="0" cellpadding="0">
+						<tr>
+							<td height="24" align="right">
+								当前页数：[{{page_data.page}}/{{page_data.pages}}]&nbsp;
+								<a href="{{ url_for('home.styleList',page=1,type=type) }}">第一页</a>
+									{% if page_data.has_prev %}
+									  <a href="{{ url_for('home.styleList',page=page_data.prev_num,type=type) }}">上一页</a>
+									{% endif %}
+									{% if page_data.has_next %}
+								　     <a href="{{ url_for('home.styleList',page=page_data.next_num,type=type) }}">下一页</a>
+									{% endif %}　
+								<a href="{{ url_for('home.styleList',page=page_data.pages,type=type) }}">最后一页&nbsp;</a>
+							</td>
+						</tr>
+					</table>
+					<div class="j-flag"></div>
+				</div>
+			</div>
+		</div>
+</script>
+<script>
+function playA(name,id){
+	window.parent.playMusic(name,id);
+}
+function addShow(id){
+	window.parent.addShow(id);
+}
+</script>
+	</body>
+</html>

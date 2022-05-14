@@ -1,0 +1,36 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<div class="content">
+  <h1 class="title-center">用户登录</h1>
+  <form action="" method="POST" onsubmit="return checkLogin()">
+    <div class="form-group">
+      <label>用户名</label>
+      <input type="text" name="username" class="form-control" value={{request.form.username}}>
+    </div>
+    <div class="form-group">
+      <label>密码</label>
+      <input type="password" name="password" class="form-control" value="">
+    </div>
+    <button type="submit" class="btn btn-primary">登录</button>
+  </form>
+</div>
+
+<script>
+  function checkLogin(){
+      var username = $("input[name='username']").val()
+      var password = $("input[name='password']").val()
+      // 检测用户名长度
+      if ( username.length < 2  || username.length > 25){
+        alert('用户名长度在2-25个字符之间')
+        return false;
+      }
+      // 检测密码长度
+      if ( username.length < 2  || username.length > 25){
+        alert('密码长度在6-20个字符之间')
+        return false;
+      }
+  }
+</script>
+
+{% endblock %}

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf8">
+		<title>甜橙云音乐</title>
+        <link href="{{ url_for('static',filename='css/pt_discover_index.css')}}" type="text/css" rel="stylesheet">
+        <link href="{{ url_for('static',filename='css/pt_frame.css')}}" type="text/css" rel="stylesheet">
+        <script type="text/javascript" src="{{url_for('static',filename='js/jquery-2.2.0.min.js')}}"></script>
+        <script type="text/javascript" src="{{url_for('static',filename='js/layer/layer.js')}}"></script>
+	</head>
+	<body style="background: url('../../static/image/bg.jpg') repeat-y 100% 100%;">
+		<div data-module="" data-sub="" id="g_top" class="m-top">
+			&nbsp;
+		</div>
+		<div id="g_nav" class="m-subnav m-subnav-up f-pr">
+			<div class="shadow">
+				&nbsp;
+			</div>
+		</div>
+		        <div class="g-bd">
+            <div class="g-wrap" id="baseBox">
+
+                <ul class="m-tabs f-cb">
+                    <li class="fst">
+                        <a ><em>编辑歌曲</em>
+                        </a>
+                    </li>
+                </ul>
+                <form onsubmit="return false" >
+					<input type="hidden" name="id" value="{{song.id}}" id="song_id">
+                    <div class="n-base f-cb">
+                        <div class="frm m-frm">
+                            <div class="itm">
+                                歌曲名称：<input type="text" class="u-txt txt" id="songName"  name="songName" maxlength="30" value="{{song.songName}}">
+                            </div>
+                            <div class="itm">
+                                歌手：
+                                <input type="text" class="u-txt txt" id="singer"  name="singer" maxlength="30" value="{{song.singer}}">
+                            </div>
+                            <div class="itm">
+                                分类：
+                                <select name="style" id="style" class="u-txt txt" style="height:auto">
+                                    <option value="1" {% if song.style == 1 %}selected {% endif %}>
+                                        华语
+                                    </option>
+                                    <option value="2" {% if song.style == 2 %}selected {% endif %}>
+                                        欧美
+                                    </option>
+                                    <option value="3" {% if song.style == 3 %}selected {% endif %}>
+                                        日语
+                                    </option>
+                                    <option value="4" {% if song.style == 4 %}selected {% endif %}>
+                                        韩语
+                                    </option>
+                                    <option value="5" {% if song.style == 5 %}selected {% endif %}>
+                                        其他
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="itm">
+                                歌曲文件地址：<input type="text" class="u-txt txt" id="fileURL" name="fileURL" maxlength="30" value="{{song.fileURL}}">
+                            </div>
+                            <div class="itm ft">
+								<button name="submit" type="button" id="save">保存</button>
+								<button onclick="history.go(-1)"  type="button">返回</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+<script>
+    $('#save').click(function(){
+        var id = $('#song_id').val();
+        var songName = $('#songName').val();
+        var singer = $('#singer').val();
+        var fileURL = $('#fileURL').val();
+        var style =  $('#style').val();
+        if(songName == ""){
+            layer.msg("歌曲名不能为空！",{icon:2,time:1000});
+            return false;
+		}
+		if(singer == ""){
+            layer.msg("歌手名不能为空！",{icon:2,time:1000});
+            return false;
+		}
+		if(fileURL == ""){
+			layer.msg("歌曲文件不能为空！",{icon:2,time:1000});
+			return false;
+		}
+        $.ajax({                                    // 使用Ajax异步提交
+            url: "{{ url_for('home.manageSongEdit') }}",   // 提交到的URL
+            type: "POST",                            // 提交方式为POST
+            data:{id:id,songName: songName,singer:singer,style:style,fileURL:fileURL},// 传递参数
+            dataType: "json",                       // 数据类型为json
+            success: function (res) {               // 操作成功后执行逻辑
+                if (res.status == 1) {
+                    layer.msg(res.message,{icon:1,time:2000},function(){
+                        window.location.href='/manage_song_list';
+                    });
+                } else {
+                    layer.msg(res.message,{icon:2,time:2000});
+                }
+            }
+        })
+    })
+</script>
+	</body>
+</html>
