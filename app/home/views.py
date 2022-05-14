@@ -10,7 +10,7 @@ from functools import wraps
 def admin_login(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
-        if session['username'] != 'mr' :
+        if session['username'] != 'Lotus' :
             return redirect(url_for("home.index"))
         return f(*args, **kwargs)
     return decorated_function
@@ -43,8 +43,6 @@ def index():
     首页
     """
     return render_template('home/index.html') # 渲染模板
-
-
 
 @home.route("/login/", methods=["GET", "POST"])
 def login():
@@ -160,11 +158,12 @@ def artistList():
         page_data = Artist.query.paginate(page=page, per_page=10)
     return render_template('home/artistList.html', page_data=page_data,type=type)  # 渲染模板
 
+# 发现音乐
 @home.route('/search')
 def search():
-    keyword = request.args.get('keyword') # 获取关键字
+    keyword = request.args.get('keyword')  # 获取关键字
     page = request.args.get('page', type=int)  # 获取page参数值
-    if keyword :
+    if keyword:
         keyword = keyword.strip()
         page_data = Song.query.filter(Song.songName.like('%'+keyword+'%')).order_by(Song.hits.desc()).paginate(page=page, per_page=10)
     else:
@@ -240,7 +239,7 @@ def collectList():
 @admin_login
 def manageArtist():
     '''
-    歌手管理
+    后台管理
     '''
     page = request.args.get('page',type=int)  # 获取page参数值
     page_data = Artist.query.paginate(page=page, per_page=10)
@@ -320,6 +319,12 @@ def manageArtistEdit():
 @home.route("/manage_artist_del")
 @admin_login
 def manageArtistDel():
+    '''
+
+    删除歌手
+
+    '''
+
     id = request.args.get('id')      # 获取ID
     try:
         artist = Artist.query.get_or_404(int(id))
@@ -348,7 +353,7 @@ def manageSong():
 @admin_login
 def manageSongAdd():
     '''
-    新增歌手
+    新增歌曲
     '''
     if request.method == "POST":   # 提交注册表单
         songName = request.form.get("songName")

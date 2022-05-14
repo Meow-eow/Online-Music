@@ -226,14 +226,14 @@
 							<div class="n-rcmd">
 								<div class="v-hd2">
 									<a href="#" class="tit f-ff2 f-tdn">热门歌手</a>
-									<span class="more"><a href=""
+									<span class="more"><a href="{{url_for('home.artistList')}}"
 										class="s-fc3">更多</a><i class="cor s-bg s-bg-6">&nbsp;</i> </span>
 								</div>
 								<ul class="m-cvrlst f-cb">
 									{% for artist in hot_artist %}
 									<li>
 										<div class="u-cover u-cover-1">
-											<a href="">
+											<a href="{{url_for('home.artist',id=artist.id)}}">
 												<img src="{{url_for('static',filename='images/artist/'+artist.imgURL)}}">
 											</a>
 										</div>

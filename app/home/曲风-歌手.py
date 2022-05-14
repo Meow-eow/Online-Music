@@ -15,7 +15,7 @@ def contentFrame():
     """
     hot_artist = Artist.query.filter_by(isHot=1).limit(12).all()                              # 获取歌手数据
     hot_song = Song.query.order_by(Song.hits.desc()).limit(10).all()                          # 获取歌曲数据
-    return render_template('home/contentFrame.html',hot_artist=hot_artist,hot_song=hot_song) # 渲染模板
+    return render_template('home/contentFrame.html',hot_artist=hot_artist,hot_song=hot_song)  # 渲染模板
 
 @home.route("/")
 def index():
