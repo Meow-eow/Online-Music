@@ -10,7 +10,7 @@ from functools import wraps
 def admin_login(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
-        if session['username'] != 'Lotus' :
+        if session['username'] != 'mr' :
             return redirect(url_for("home.index"))
         return f(*args, **kwargs)
     return decorated_function

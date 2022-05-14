@@ -34,7 +34,7 @@
             </div>
 			<div style="display: none">
 				<div id="textContent" style="width: 75px; height: 45px;color:black">
-					{% if session['username'] == 'Lotus' %}
+					{% if session['username'] == 'mr' %}
 					<a target="contentFrame" href="{{url_for('home.manageArtist')}}">后台管理</a>
 					{% else %}
 					<a target="contentFrame" href="{{url_for('home.modifyPassword')}}">修改密码</a>
