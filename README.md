@@ -57,7 +57,7 @@
 
   3. 安装项目所需的库(requirements.txt)
 	
-		pip install -r requirements.txt -i https://pypi.tsinghua.edu.cn/simple
+			pip install -r requirements.txt -i https://pypi.tsinghua.edu.cn/simple
 
   4. 创建各类型文件，并编写源码
 
